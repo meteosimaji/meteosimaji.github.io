@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Endless Stone Labyrinth</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+    <canvas id="minimap" width="220" height="220"></canvas>
+
+    <div class="hud">
+      <h1>終わりなき迷宮</h1>
+      <p>WASD / スワイプで移動・ドラッグで視点</p>
+      <p class="hint">音量注意・ヘッドホン推奨</p>
+    </div>
+
+    <div class="joystick" id="joystick">
+      <div class="stick"></div>
+    </div>
+
+    <audio id="ambience" loop>
+      <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_0b5bf553cc.mp3?filename=dark-ambient-110734.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
