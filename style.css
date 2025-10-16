@@ -1,0 +1,123 @@
+:root {
+  color-scheme: dark;
+  --accent: #c7365f;
+  --hud-bg: rgba(10, 10, 18, 0.65);
+  font-family: 'Cinzel', serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #05060a;
+  overflow: hidden;
+  height: 100%;
+  color: #d8d8d8;
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+#minimap {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(8, 8, 12, 0.55);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.hud {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  background: var(--hud-bg);
+  padding: 1.2rem 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 20rem;
+}
+
+.hud h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.4rem, 2vw + 0.5rem, 2.6rem);
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.hud p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.hud .hint {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: rgba(255, 200, 200, 0.7);
+}
+
+.joystick {
+  position: fixed;
+  bottom: 3rem;
+  left: 3rem;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(15, 15, 22, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  touch-action: none;
+  display: none;
+}
+
+.stick {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(199, 54, 95, 0.75);
+  top: calc(50% - 35px);
+  left: calc(50% - 35px);
+  transition: transform 0.1s ease-out;
+}
+
+body.touch .joystick {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #minimap {
+    width: 160px;
+    height: 160px;
+  }
+
+  .hud {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .joystick {
+    width: 120px;
+    height: 120px;
+    left: 1.5rem;
+    bottom: 2rem;
+  }
+
+  .stick {
+    width: 60px;
+    height: 60px;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+  }
+}
