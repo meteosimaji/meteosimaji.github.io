@@ -1,3 +1,2 @@
 PyMuPDF
 reportlab
-Flask
