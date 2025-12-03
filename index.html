@@ -5,14 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to meteosimaji</title>
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Inter:wght@400;500;600;700&display=swap");
 
     :root {
       color-scheme: light dark;
-      --bg: #f5f7fb;
-      --fg: #1f2933;
-      --accent: #3b82f6;
-      --card: #ffffffcc;
+      --bg: #0f172a;
+      --fg: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #7c3aed;
+      --accent-2: #2563eb;
+      --card: rgba(255, 255, 255, 0.06);
+      --stroke: rgba(255, 255, 255, 0.08);
+      --glass: rgba(255, 255, 255, 0.12);
+      --blur: blur(14px);
     }
 
     * {
@@ -22,134 +27,397 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      padding: 32px 16px 96px;
-      background: radial-gradient(circle at 20% 20%, #e0eaff, #f8fafc 40%),
-        radial-gradient(circle at 80% 0%, #c7d2fe, transparent 35%),
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #1e1b4b, transparent 40%),
+        radial-gradient(circle at 80% 0%, #0ea5e9, transparent 35%),
+        radial-gradient(circle at 50% 80%, #22c55e30, transparent 45%),
         var(--bg);
       color: var(--fg);
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .glow {
+      position: fixed;
+      inset: -10% auto auto 10%;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, #7c3aed55 0%, transparent 60%);
+      filter: blur(40px);
+      opacity: 0.7;
+      z-index: 0;
+      animation: drift 16s ease-in-out infinite alternate;
+    }
+
+    .glow.secondary {
+      inset: auto 0 5% auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #0ea5e955 0%, transparent 60%);
+      animation-duration: 18s;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateY(-12px) translateX(8px) scale(1);
+      }
+      to {
+        transform: translateY(18px) translateX(-16px) scale(1.06);
+      }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: var(--blur);
+      background: linear-gradient(90deg, rgba(12, 18, 32, 0.88), rgba(12, 18, 32, 0.65));
+      border-bottom: 1px solid var(--stroke);
+      z-index: 10;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Baloo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1.4rem;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: transform 120ms ease, color 120ms ease;
+    }
+
+    .brand:hover {
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.24);
     }
 
     main {
-      background: var(--card);
-      backdrop-filter: blur(6px);
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 720px;
-      width: 100%;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.08);
+      position: relative;
       z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      align-items: center;
+      gap: 28px;
+      padding: 32px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(124, 58, 237, 0.14), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+      font-weight: 600;
+      width: fit-content;
+      letter-spacing: 0.02em;
     }
 
     h1 {
-      margin: 0 0 12px;
-      font-size: 2.4rem;
+      margin: 0;
+      font-size: clamp(2rem, 3vw, 2.8rem);
       letter-spacing: -0.02em;
+      line-height: 1.18;
     }
 
     p {
-      line-height: 1.6;
-      margin: 0 0 16px;
+      margin: 0;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
     }
 
     .cta {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-top: 12px;
       padding: 12px 18px;
-      background: linear-gradient(135deg, var(--accent), #2563eb);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color: #f8fafc;
       border-radius: 12px;
       text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      font-weight: 700;
+      box-shadow: 0 16px 40px rgba(59, 130, 246, 0.35);
+      transition: transform 120ms ease, box-shadow 120ms ease;
     }
 
     .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(37, 99, 235, 0.4);
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 20px 48px rgba(37, 99, 235, 0.45);
     }
 
-    .tags {
+    .ghost {
+      border: 1px solid var(--stroke);
+      background: var(--glass);
+      color: var(--fg);
+      box-shadow: none;
+    }
+
+    .ghost:hover {
+      background: rgba(255, 255, 255, 0.18);
+      box-shadow: none;
+    }
+
+    .grid {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      padding: 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.12), transparent 45%);
+      opacity: 0;
+      transition: opacity 140ms ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 1.12rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .card a {
+      color: #c4d4ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .tag-row {
       display: flex;
+      gap: 8px;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0 8px;
-      padding: 0;
-      list-style: none;
+      margin-top: 10px;
     }
 
     .tag {
-      padding: 6px 12px;
-      background: #e5edff;
-      color: #1e3a8a;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 999px;
-      font-size: 0.9rem;
+      color: #e0e7ff;
       font-weight: 600;
-      letter-spacing: 0.01em;
+      font-size: 0.9rem;
+      border: 1px solid var(--stroke);
+    }
+
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
     .footer-brand {
-      position: fixed;
-      inset: auto 0 0;
-      padding: 0 10px 10px;
-      font-size: clamp(7rem, 30vw, 24rem);
-      font-family: "Baloo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      font-weight: 800;
-      letter-spacing: clamp(-0.02em, 0.38vw, 0.36em);
-      color: rgba(31, 41, 51, 0.08);
-      text-align: center;
-      line-height: 0.92;
-      user-select: none;
-      mix-blend-mode: multiply;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6px;
+      padding: 10px 16px;
+      border-radius: 12px;
       text-decoration: none;
-      display: block;
-      width: 100%;
-      transition: transform 120ms ease, color 120ms ease;
+      color: var(--fg);
+      font-family: "Baloo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--stroke);
+      transition: transform 120ms ease, background 120ms ease;
     }
 
     .footer-brand:hover {
-      transform: scale(1.03);
-      color: rgba(31, 41, 51, 0.12);
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .hero {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="glow"></div>
+  <div class="glow secondary"></div>
+  <header>
+    <nav>
+      <a class="brand" href="#">meteosimaji</a>
+      <div class="nav-links">
+        <a class="pill" href="discord.html">ディスコード風ページ</a>
+        <a class="pill" href="https://github.com/meteosimaji" target="_blank" rel="noreferrer noopener">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
   <main>
-    <p class="tag">meteosimaji.github.io</p>
-    <h1>こんにちは、meteosimajiです</h1>
-    <p>
-      シンプルなホームページへようこそ。このサイトでは、実験的なプロジェクトや学習のアウトプットをまとめていきます。
-      ブラウザから見やすくなるよう、軽いデザインで構成しています。
-    </p>
-    <p>
-      下のリンクからコンテンツを増やしていく予定です。リポジトリに変更を加えたら、このトップページを更新してください。
-    </p>
-    <a class="cta" href="https://github.com/meteosimaji" target="_blank" rel="noreferrer noopener">
-      GitHub プロフィールを見る
-      <span aria-hidden="true">↗</span>
-    </a>
-    <ul class="tags" aria-label="現在取り組んでいるテーマ">
-      <li class="tag">Web</li>
-      <li class="tag">学習</li>
-      <li class="tag">実験</li>
-      <li class="tag">公開メモ</li>
-    </ul>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">光をまとったインタラクション</span>
+        <h1>透過グラデーションやブラー効果で、リッチな質感を楽しむホーム</h1>
+        <p>
+          Webflow 由来のリッチなスタイルを保持しており、透過グラデーションのホバーオーバーレイや
+          ナビゲーション開閉時のブラー処理など、インタラクティブな質感が組み込まれている点が
+          「おしゃれ」に感じさせる要素です。その心地よさをトップページにも取り入れました。
+        </p>
+        <div class="hero-cta">
+          <a class="cta" href="discord.html">デザインのサンプルを見る</a>
+          <a class="cta ghost" href="https://github.com/meteosimaji" target="_blank" rel="noreferrer noopener">GitHub プロフィール</a>
+        </div>
+        <div class="tag-row" aria-label="現在取り組んでいるテーマ">
+          <span class="tag">Web</span>
+          <span class="tag">学習</span>
+          <span class="tag">実験</span>
+          <span class="tag">公開メモ</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="card" style="height:100%; backdrop-filter: blur(12px); display:grid; place-content:center; text-align:center;">
+          <div style="font-size:1.8rem; font-weight:800; letter-spacing:-0.02em;">Playful UI</div>
+          <p style="margin-top:6px; color:var(--muted);">Hover overlays / Glassy nav / Soft glow</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="最新コンテンツ">
+      <article class="card">
+        <h2>Discord inspired</h2>
+        <p>透過グラデーションや立体的なホバーで遊べるレイアウト。質感の参考にどうぞ。</p>
+        <a href="discord.html">サンプルを開く ↗</a>
+      </article>
+      <article class="card">
+        <h2>Projects &amp; experiments</h2>
+        <p>学習ログや小さな検証をまとめ中。コードの断片やUIスケッチを増やしていきます。</p>
+        <a href="https://github.com/meteosimaji" target="_blank" rel="noreferrer noopener">GitHub へ ↗</a>
+      </article>
+      <article class="card">
+        <h2>Notes &amp; updates</h2>
+        <p>新しいアウトプットを追加したら、ここで一目で分かるように更新します。</p>
+        <a href="#">近日追加</a>
+      </article>
+    </section>
+
+    <footer>
+      <div>お気に入りのデザインを試しながら、少しずつコンテンツを育てていきます。</div>
+      <a
+        class="footer-brand"
+        href="https://x.com/meteo_IDT"
+        target="_blank"
+        rel="noreferrer noopener"
+      >
+        Meteo
+      </a>
+    </footer>
   </main>
-  <a
-    class="footer-brand"
-    href="https://x.com/meteo_IDT"
-    target="_blank"
-    rel="noreferrer noopener"
-  >
-    Meteo
-  </a>
 </body>
 </html>
