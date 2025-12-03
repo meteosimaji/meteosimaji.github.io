@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to meteosimaji</title>
   <style>
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap");
+
     :root {
       color-scheme: light dark;
       --bg: #f5f7fb;
@@ -96,16 +98,26 @@
     .footer-brand {
       position: fixed;
       inset: auto 0 0;
-      padding: 0 18px 8px;
-      font-size: clamp(4rem, 20vw, 14rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
+      padding: 0 10px 10px;
+      font-size: clamp(7rem, 30vw, 24rem);
+      font-family: "Baloo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      font-weight: 800;
+      letter-spacing: clamp(-0.02em, 0.38vw, 0.36em);
       color: rgba(31, 41, 51, 0.08);
       text-align: center;
       line-height: 0.92;
-      pointer-events: none;
       user-select: none;
       mix-blend-mode: multiply;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      transition: transform 120ms ease, color 120ms ease;
+    }
+
+    .footer-brand:hover {
+      transform: scale(1.03);
+      color: rgba(31, 41, 51, 0.12);
     }
   </style>
 </head>
@@ -131,6 +143,13 @@
       <li class="tag">公開メモ</li>
     </ul>
   </main>
-  <div class="footer-brand" aria-hidden="true">Meteo</div>
+  <a
+    class="footer-brand"
+    href="https://x.com/meteo_IDT"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
+    Meteo
+  </a>
 </body>
 </html>
